@@ -5,3 +5,4 @@ build/
 dist/
 .pytest_cache/
 npl.config.json
+初始设计思路.md
