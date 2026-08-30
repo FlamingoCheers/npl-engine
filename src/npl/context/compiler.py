@@ -154,12 +154,17 @@ def compile_render_context(state, scene, ir, style_name, descriptions=None,
 
 
 def compile_actor_context(state, scene, ir, style_name, actor, descriptions=None,
-                          style_decls=()):
+                          style_decls=(), goal_aware=True):
     """LLM Actor 模式（M3 §2.6）：把某人物放进自己的 epistemic sandbox。
 
     该人物以自己的认知视图代替 POV 视图，其余权限过滤规则不变。
-    脚本模式仍是唯一真值源：LLM 只产出行动提议（软约束 = dramatic_goal），
-    提议经作者确认写回 .npl 后才进入确定性执行。
+
+    goal_aware 红线（信息面纪律）：
+    - True（默认）：作者提案助手模式——上下文携带 dramatic_goal 与误导提示，
+      LLM 只产出行动提议（软约束），提议经作者确认写回 .npl 后才进入确定性执行。
+    - False：自主演员模式——上下文剥离 narrative_objectives 与 misdirect_notes，
+      演员只知道角色想要什么，不知道这场戏要达成什么。
+      自主运行的 actor（如 AIDM NPC）必须用此档，否则等于邀请它讨好编排者。
     """
     from ..ir.scene_ir import epistemic_view
     ir2 = dict(ir)
@@ -170,5 +175,9 @@ def compile_actor_context(state, scene, ir, style_name, actor, descriptions=None
     }
     ctx = compile_render_context(state, scene, ir2, style_name, descriptions,
                                  style_decls)
-    ctx["actor_mode"] = {"character": actor, "sandbox": True}
+    if not goal_aware:
+        ctx.pop("narrative_objectives", None)
+        ctx.pop("misdirect_notes", None)
+    ctx["actor_mode"] = {"character": actor, "sandbox": True,
+                         "goal_aware": goal_aware}
     return ctx

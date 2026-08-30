@@ -87,3 +87,39 @@ def test_actor_mock_deterministic(src_file, tmp_path, capsys):
     assert json.loads(f1.read_text(encoding="utf-8")) == \
         json.loads(f2.read_text(encoding="utf-8"))
     capsys.readouterr()
+
+
+def test_actor_context_goal_aware_redline():
+    """信息面红线：自主演员档剥离叙事意图，作者助手档保留。"""
+    from pathlib import Path
+
+    from npl.context.compiler import compile_actor_context
+    from npl.checker.extract import scene_reveals
+    from npl.ir.scene_ir import build_ir
+    from npl.parser import load_program
+    from npl.runtime import RuntimeState
+    from npl.runtime.executor import resolve_access
+
+    tmp = Path(__file__).parent / "_tmp_redline.npl"
+    tmp.write_text(SRC, encoding="utf-8")
+    try:
+        program = load_program(tmp)
+        state = RuntimeState.from_program(program)
+        scene = program.scenes[1]  # 有 dramatic_goal(reveal) 的摊牌幕
+        ir = build_ir(state, scene, 1, resolve_access(scene),
+                      scene_reveals(scene), [])
+        ctx_a = compile_actor_context(state, scene, ir, "default", "Lin")
+        ctx_b = compile_actor_context(state, scene, ir, "default", "Lin",
+                                      goal_aware=False)
+        # 作者助手档：叙事意图在上下文里
+        assert ctx_a["narrative_objectives"]
+        assert ctx_a["actor_mode"] == {"character": "Lin", "sandbox": True,
+                                       "goal_aware": True}
+        # 自主演员档：叙事意图与误导提示全部剥离
+        assert "narrative_objectives" not in ctx_b
+        assert "misdirect_notes" not in ctx_b
+        assert ctx_b["actor_mode"]["goal_aware"] is False
+        # 认知沙箱不受影响
+        assert ctx_b["pov"]["name"] == "Lin"
+    finally:
+        tmp.unlink(missing_ok=True)
