@@ -120,6 +120,15 @@ def build_user_prompt(ctx):
         lines.append(f"  正在隐藏: {p}（行为上掩饰，不得让其他人物察觉实情）")
     for p in pov["intents"]:
         lines.append(f"  意图: {p}")
+    att_cn = {"trust": "信任", "distrust": "不信任", "affection": "亲近",
+              "resentment": "怨怼", "wariness": "戒备", "guilt": "愧疚",
+              "attachment": "依恋"}
+    for target, atts in pov.get("relations", {}).items():
+        for att, v in atts.items():
+            reason = pov.get("relation_reasons", {}).get(target, {}).get(att)
+            lines.append(f"  对 {target} 的态度: {att_cn.get(att, att)}={v}"
+                         f"（影响语气与行为细节；严禁在叙述中直接出现数值或'态度'字样）"
+                         + (f"（缘由：{reason}）" if reason else ""))
     pers = "，".join(f"{k}={v}" for k, v in pov["personality"].items())
     emo = "，".join(f"{k}={v}" for k, v in pov["emotion"].items())
     arc = " -> ".join(pov["emotional_arc"] or [])

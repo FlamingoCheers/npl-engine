@@ -46,6 +46,12 @@ class RuntimeState:
             suspects = {}
             for s in c.suspects:
                 suspects[s.name] = float(getattr(s, "confidence", 0.5))
+            relations = {}
+            relation_reasons = {}
+            for rel in getattr(c, "relations", []):   # v0.5 有向态度（值+理由）
+                relations.setdefault(rel.target, {})[rel.attitude] = rel.value
+                if rel.reason:
+                    relation_reasons.setdefault(rel.target, {})[rel.attitude] = rel.reason
             believes = set()
             believes_about = {}
             nested_beliefs = set()
@@ -70,6 +76,8 @@ class RuntimeState:
                 "goals": {p.name for p in c.goal},
                 "personality": {t.name: t.value for t in c.personality},
                 "emotion": {t.name: t.value for t in c.emotion},
+                "relations": relations,
+                "relation_reasons": relation_reasons,
                 "hides": set(),
                 "arc": None,
             }
@@ -107,6 +115,14 @@ class RuntimeState:
                 "goals": set(cs["goals"]),
                 "personality": dict(cs["personality"]),
                 "emotion": dict(cs["emotion"]),
+                "relations": {
+                    target: dict(atts)
+                    for target, atts in cs.get("relations", {}).items()
+                },
+                "relation_reasons": {
+                    target: dict(atts)
+                    for target, atts in cs.get("relation_reasons", {}).items()
+                },
                 "hides": set(cs.get("hides", [])),
                 "arc": ({"states": list(cs["arc"]["states"]),
                          "current": cs["arc"]["current"]} if cs["arc"] else None),
@@ -223,6 +239,14 @@ class RuntimeState:
                     "goals": sorted(cs["goals"]),
                     "personality": dict(sorted(cs["personality"].items())),
                     "emotion": dict(sorted(cs["emotion"].items())),
+                    "relations": {
+                        target: dict(sorted(atts.items()))
+                        for target, atts in sorted(cs.get("relations", {}).items())
+                    },
+                    "relation_reasons": {
+                        target: dict(sorted(atts.items()))
+                        for target, atts in sorted(cs.get("relation_reasons", {}).items())
+                    },
                     "hides": sorted(cs["hides"]),
                     "arc": ({"states": cs["arc"]["states"],
                              "current": cs["arc"]["current"]} if cs["arc"] else None),

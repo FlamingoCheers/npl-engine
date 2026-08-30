@@ -87,6 +87,18 @@ def validate(program: ast.Program) -> list:
                     err("NAR-043", entry.line,
                         f"置信度必须在 0~1 之间，得到 {entry.confidence}（{c.name}.suspects: {entry.name}）")
 
+        # v0.5 有向态度（CK2 式：值+理由）
+        for rel in c.relations:
+            if rel.target not in characters:
+                err("NAR-002", rel.line,
+                    f"relations 引用了未声明的人物 '{rel.target}'（{c.name} 对 {rel.target}）")
+            elif rel.target == c.name:
+                warn("NAR-041", rel.line, f"人物 '{c.name}' 对自身的态度声明（通常无意义）")
+            if not (-1.0 <= rel.value <= 1.0):
+                err("NAR-045", rel.line,
+                    f"态度值必须在 -1.0~1.0 之间，得到 {rel.value}"
+                    f"（{c.name} 对 {rel.target}.{rel.attitude}）")
+
     # ---- 信息对象 ----
     for info in program.informations:
         if info.truth is None:
@@ -208,6 +220,32 @@ def validate(program: ast.Program) -> list:
             elif w.until <= scene_idx:
                 err("NAR-004", w.line,
                     f"withhold 释放幕次 {w.until} 必须晚于声明幕（场景 {scene_idx}，{scene.title}）")
+
+        # v0.5 关系变更（绝对置值）
+        for rc in scene.relation_changes:
+            if rc.subject not in characters:
+                err("NAR-002", rc.line,
+                    f"relation_changes 主体 '{rc.subject}' 未声明（{scene.title}）")
+            elif rc.subject not in names:
+                err("NAR-004", rc.line,
+                    f"relation_changes 主体 '{rc.subject}' 不在场景 participants 中（{scene.title}）")
+            if rc.target not in characters:
+                err("NAR-002", rc.line,
+                    f"relation_changes 目标 '{rc.target}' 未声明（{scene.title}）")
+            elif rc.target not in names:
+                warn("NAR-004", rc.line,
+                     f"relation_changes 目标 '{rc.target}' 不在本幕 participants 中"
+                     f"（对不在场者的态度变化，{scene.title}）")
+            if not (-1.0 <= rc.value <= 1.0):
+                err("NAR-045", rc.line,
+                    f"态度值必须在 -1.0~1.0 之间，得到 {rc.value}"
+                    f"（{rc.subject}->{rc.target}.{rc.attitude}，{scene.title}）")
+
+    # ---- v0.5 章节意图（goal/forbid/pacing 的目标必须接地） ----
+    for it in program.intents:
+        if it.arg not in facts and it.arg not in informations:
+            err("NAR-002", it.line,
+                f"intent '{it.kind}' 的目标 '{it.arg}' 未声明（必须是事实或信息对象）")
 
     # ---- M4 母题结构（跨幕顺序）----
     motif_history = {}

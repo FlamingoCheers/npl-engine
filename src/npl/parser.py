@@ -10,12 +10,15 @@ from .lexer import tokenize
 
 SECTION_WORDS = {"knows", "believes", "suspects", "does_not_know", "intends", "goal"}
 TRAIT_WORDS = {"personality", "emotion"}
+RELATION_WORD = "relations"          # v0.5：character 块内有向态度小节
 WORLD_WORDS = "location/time/fact/entity/process"
 NEST_VERBS = ("knows", "does_not_know", "believes")
 INFO_WORDS = "truth/known_by/unknown_to/suspected_by/public"
 SCENE_WORDS = ("pov/location/world_time/flashback/participants/access/events/"
                "information_changes/dramatic_goal/emotional_arc/"
-               "motifs/foreshadows/withholds/misdirects")
+               "motifs/foreshadows/withholds/misdirects/relation_changes")
+INTENT_KINDS = ("goal", "forbid", "pacing")
+PACING_KINDS = ("suspicion_up",)
 STYLE_FIELDS = ("desc", "sentence_max", "emotion_naming", "sensory",
                 "dialogue_gaps", "rule")
 MOTIF_ROLES = ("introduce", "recurrence", "final")
@@ -143,9 +146,14 @@ class Parser:
                     raise NPLSyntaxError(decl.line, f"重复的风格声明 '{decl.key}'", code="NAR-011")
                 seen_top.add(key)
                 program.styles.append(decl)
+            elif word == "intent":
+                if "intent" in seen_top:
+                    raise NPLSyntaxError(tok.line, "重复的 intent 声明", code="NAR-011")
+                seen_top.add("intent")
+                program.intents.extend(self.parse_intent_block())
             else:
                 raise NPLSyntaxError(tok.line,
-                                     f"未知的顶层声明 '{word}'（v0.1 支持 world/character/information/scene/render/style）")
+                                     f"未知的顶层声明 '{word}'（v0.1 支持 world/character/information/scene/render/style/intent）")
             self.skip_newlines()
         return program
 
@@ -302,9 +310,15 @@ class Parser:
                 seen.add(word)
                 self.expect(T.COLON)
                 getattr(decl, word).extend(self.parse_trait_list())
+            elif word == RELATION_WORD:
+                if word in seen:
+                    raise NPLSyntaxError(tok.line, f"character 内重复小节 '{word}'", code="NAR-012")
+                seen.add(word)
+                self.expect(T.COLON)
+                decl.relations.extend(self.parse_relation_items())
             else:
                 raise NPLSyntaxError(tok.line,
-                                     f"character 块内未知小节 '{word}'（支持 knows/believes/suspects/does_not_know/intends/goal/personality/emotion）")
+                                     f"character 块内未知小节 '{word}'（支持 knows/believes/suspects/does_not_know/intends/goal/personality/emotion/relations）")
             self.skip_newlines()
         self.expect(T.RBRACE)
         self.end_of_stmt()
@@ -383,6 +397,63 @@ class Parser:
             self.end_of_stmt()
             self.skip_newlines()
         return items
+
+    def parse_relation_items(self):
+        """v0.5 relations 小节条目：`目标 : 态度 = 数值`（行尾注释=理由）。"""
+        items = []
+
+        def one():
+            target = self.expect_ident("关系目标人物")
+            self.expect(T.COLON)
+            attitude = self.expect_ident("态度名")
+            self.expect(T.EQUALS)
+            num = self.expect(T.NUMBER, "态度值(-1.0~1.0)")
+            return ast.Relation(target=target.value, attitude=attitude.value,
+                                value=float(num.value), line=target.line,
+                                reason=num.trailing)
+
+        if self.check(T.IDENT):
+            items.append(one())
+            self.end_of_stmt()
+            return items
+        if self.check(T.RBRACE) or self.check(T.EOF):
+            return items
+        self.expect(T.NEWLINE)
+        self.skip_newlines()
+        # 下一个 IDENT 是已知小节关键字（含 relations 与特质节）时停止，交给上层分发产生 NAR-012
+        while (self.check(T.IDENT) and self.peek(1).type == T.COLON
+               and self.peek().value not in SECTION_WORDS
+               and self.peek().value != RELATION_WORD):
+            items.append(one())
+            self.end_of_stmt()
+            self.skip_newlines()
+        return items
+
+    def parse_relation_changes(self):
+        """v0.5 relation_changes 场景块：`主体 -> 目标 : 态度 = 数值`（行尾注释=理由）。"""
+        self.expect(T.LBRACE)
+        self.skip_newlines()
+        changes = []
+
+        def one():
+            subject = self.expect_ident("关系变更主体")
+            self.expect(T.ARROW)
+            target = self.expect_ident("关系变更目标")
+            self.expect(T.COLON)
+            attitude = self.expect_ident("态度名")
+            self.expect(T.EQUALS)
+            num = self.expect(T.NUMBER, "态度值(-1.0~1.0)")
+            return ast.RelationChange(subject=subject.value, target=target.value,
+                                      attitude=attitude.value, value=float(num.value),
+                                      line=subject.line, reason=num.trailing)
+
+        while not self.check(T.RBRACE):
+            changes.append(one())
+            self.end_of_stmt()
+            self.skip_newlines()
+        self.expect(T.RBRACE)
+        self.end_of_stmt()
+        return changes
 
     def parse_trait_list(self):
         """personality/emotion 条目：`名称 = 数值`。"""
@@ -482,7 +553,7 @@ class Parser:
             if word not in ("pov", "location", "world_time", "flashback", "participants",
                             "access", "events", "information_changes", "dramatic_goal",
                             "emotional_arc", "motifs", "foreshadows", "withholds",
-                            "misdirects"):
+                            "misdirects", "relation_changes"):
                 raise NPLSyntaxError(tok.line, f"scene 块内未知项 '{word}'（支持 {SCENE_WORDS}）")
             if word in seen:
                 raise NPLSyntaxError(tok.line, f"scene 内重复项 '{word}'", code="NAR-012")
@@ -523,6 +594,8 @@ class Parser:
                 self.parse_withhold_block(decl)
             elif word == "misdirects":
                 self.parse_literary_block(decl, "misdirects")
+            elif word == "relation_changes":
+                decl.relation_changes.extend(self.parse_relation_changes())
             else:
                 self.parse_arc_block(decl)
             self.skip_newlines()
@@ -715,6 +788,49 @@ class Parser:
         self.expect(T.RBRACE)
         self.end_of_stmt()
         return decl
+
+    # ---------- intent（v0.5 章节意图） ----------
+    def parse_intent_block(self):
+        """intent 块：`goal = fact` / `forbid = fact` / `pacing = suspicion_up (fact)`。
+
+        行尾注释为语义说明；同一 (kind, pacing_kind, arg) 重复 → NAR-012。
+        """
+        self.advance()          # 'intent'
+        self.expect(T.LBRACE)
+        self.skip_newlines()
+        lines = []
+        seen = set()
+        while not self.check(T.RBRACE):
+            tok = self.expect_ident("意图类型")
+            kind = tok.value
+            if kind not in INTENT_KINDS:
+                raise NPLSyntaxError(tok.line,
+                                     f"未知意图类型 '{kind}'（支持 goal/forbid/pacing）",
+                                     code="NAR-001")
+            self.expect(T.EQUALS)
+            pacing_kind = None
+            if kind == "pacing":
+                pk = self.expect_ident("节奏类型")
+                if pk.value not in PACING_KINDS:
+                    raise NPLSyntaxError(pk.line,
+                                         f"未知节奏类型 '{pk.value}'（支持 suspicion_up）",
+                                         code="NAR-001")
+                pacing_kind = pk.value
+                self.expect(T.LPAREN)
+            arg = self.expect_ident("意图目标")
+            if kind == "pacing":
+                self.expect(T.RPAREN)
+            key = (kind, pacing_kind, arg.value)
+            if key in seen:
+                raise NPLSyntaxError(arg.line, f"重复的意图声明 '{kind} {arg.value}'", code="NAR-012")
+            seen.add(key)
+            lines.append(ast.IntentLine(kind=kind, arg=arg.value, pacing_kind=pacing_kind,
+                                        line=tok.line, desc=arg.trailing))
+            self.end_of_stmt()
+            self.skip_newlines()
+        self.expect(T.RBRACE)
+        self.end_of_stmt()
+        return lines
 
     # ---------- render ----------
     def parse_render(self):

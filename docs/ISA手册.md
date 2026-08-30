@@ -101,6 +101,19 @@ access 只约束**渲染投影**（LLM 能看到什么），不改变 simulate �
 | `motifs`（introduce/recurrence/final） | `narrative.motifs[id] += {role, scene}`（仅记录，不改认知） |
 | `withholds { x until = N }` | 立即入 `conceal_active`；**第 N 幕开头自动解除**（跨幕 pending 队列） |
 | `misdirects { x }` | `misdirects_active += x`；`suspicions += x`（读者被引向该方向）；reveal x 时反转解除 |
+| `relation_changes { A -> B : att = v }` | `characters[A].relations[B][att] = v`（**绝对置值**，非增量）；带行尾注释时同步 `relation_reasons`；`changes.relations_set` 审计。态度**不**自动改变认知/读者状态（相关性非因果，叙事效果属投影层） |
+
+## 6a. 章节意图协议（v0.5，整章验收）
+
+| 指令 | 检查时机 | 数据基础 | 违背 |
+|---|---|---|---|
+| `intent goal = x` | simulate 末尾 | 末快照 `reader_knows` | NAR-071 |
+| `intent forbid = x` | simulate 末尾 | 全部快照 `reader_knows` | NAR-072（首现幕） |
+| `intent pacing = suspicion_up (x)` | simulate 末尾 | 逐幕全员 max suspects | NAR-073（回落幕） |
+
+- 仅 `simulate()` 执行；`simulate_continue` 不做（意图属于整章）。
+- personality 预留：未来 react 规则触发时，personality 分数可作态度/情绪变化的
+  **强度调制系数**（DF 模式），ISA 层不引入隐式状态转换，仍由显式指令驱动。
 
 ## 7. Reader Model 逐幕更新（确定性）
 

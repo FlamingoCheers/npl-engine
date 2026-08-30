@@ -44,6 +44,9 @@ character Lin {    // 林，女，Bao 的妻子。克制、痛感延迟；握着
         Bao.does_not_know(lin_has_seen_contract_copy)  // 我还收着复印件，她并不知道
     suspects:
         bao_second_mortgage_secret (0.35)  // 账本窟窿对不上——她是不是背着我抵押了房子？
+    relations:  // v0.5 有向态度：只影响语气与行为细节，严禁在叙述中直接命名数值
+        Bao : trust = -0.9    // 三月三日茶楼电话之后，信任崩塌
+        Bao : wariness = 0.8  // 她开始留意每一笔钱
 }
 
 character Bao {    // 包，男，Lin 的丈夫。背着家里接触买家、做了二次抵押；以为林一无所知
@@ -56,6 +59,8 @@ character Bao {    // 包，男，Lin 的丈夫。背着家里接触买家、做
     believes:
         lin_knows_nothing  // 她一直以为林对一切一无所知
         Xiao.does_not_know(bao_second_mortgage_secret)  // 小满什么都没看见
+    relations:
+        Lin : guilt = 0.6  // 以为她还蒙在鼓里，愧疚里带着侥幸
 }
 
 character Xiao {   // 小满，女，十四岁，两人的女儿。早熟、沉默，看见了不该看的
@@ -199,4 +204,9 @@ style restrained_literary {    // M4：文件级风格覆写（与预设合并�
     sentence_max = 22
     desc = "冷调克制的家常写实，厨房与机械意象优先"
     rule = "厨房与机械意象优先，避免华丽修辞"
+}
+
+intent {    // v0.5 章节意图：对成稿的聚合验收（npl simulate 末尾检查）
+    goal = marriage_is_effectively_over  // 读者最终必须抵达：这段婚姻事实上已经结束
+    forbid = bao_burning_letters         // "烧的是信"只是小满的误读，全章不得坐实
 }

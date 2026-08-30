@@ -150,10 +150,15 @@ def _emit_simulation(result, out, header=None):
             if seg:
                 parts.append(f"{label}: {seg}")
         who = "；".join(parts) or "无"
+        rs = "、".join(f"{k} = {v}" for k, v in chg.get("relations_set", {}).items())
+        if rs:
+            print(f"      关系变更: {rs}")
         print(f"  [{idx}] {snap['meta']['scene_title']}"
               f"｜POV: {ir['framing']['pov']}{fb}｜认知变更: {who}")
     print(f"  快照: {out / 'state_snapshots'}")
     print(f"  IR:   {out / 'scene_ir'}")
+    for w in getattr(result, "intent_warnings", []):
+        print(f"  ◆ 章节意图 [{w['code']}]: {w['message']}")
 
 
 def cmd_simulate(args):
@@ -164,6 +169,9 @@ def cmd_simulate(args):
     _emit_simulation(result, args.out)
     for line in _check_process_order(program, result.snapshots[-1]["state"]):
         print(line)
+    if program.intents:
+        print(f"  ◆ 章节意图：{len(program.intents)} 条声明，"
+              f"{len(result.intent_warnings)} 条警告")
     return 0
 
 
@@ -354,6 +362,13 @@ def _print_character_view(state, name, scene_title, idx, total, added, deep=Fals
                 print(f"      判定: 在 {holder} 层{note}（基础命题近似，深度≥3 中间层未建模）")
     if cs.get("hides"):
         print(f"  hides: {', '.join(sorted(cs['hides']))}")
+    if cs.get("relations"):
+        print("  relations:")
+        for target, atts in sorted(cs["relations"].items()):
+            reasons = cs.get("relation_reasons", {}).get(target, {})
+            for att, v in sorted(atts.items()):
+                reason = reasons.get(att)
+                print(f"    {target}.{att} = {v}" + (f"（{reason}）" if reason else ""))
     if cs["intends"]:
         print(f"  intends: {', '.join(sorted(cs['intends']))}")
     if cs["personality"]:
@@ -648,6 +663,18 @@ def _diff_states(prev, cur):
             b = cc.get("emotion", {}).get(dim)
             if a != b:
                 lines.append(f"{name}.emotion.{dim}: {a} -> {b}")
+        # v0.5 关系
+        prels = pc.get("relations", {})
+        crels = cc.get("relations", {})
+        for target in sorted(set(prels) | set(crels)):
+            patts = prels.get(target, {})
+            catts = crels.get(target, {})
+            for att in sorted(set(patts) | set(catts)):
+                a = patts.get(att)
+                b = catts.get(att)
+                if a != b:
+                    lines.append(f"{name}->{target}.{att}: "
+                                 f"{'∅' if a is None else a} -> {'∅' if b is None else b}")
     # narrative
     for field in ("reader_knows", "conceal_active", "revealed",
                   "suspicions", "unanswered_questions"):

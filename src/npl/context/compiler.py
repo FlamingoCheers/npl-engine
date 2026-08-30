@@ -127,6 +127,8 @@ def compile_render_context(state, scene, ir, style_name, descriptions=None,
             "intents": view["intends"],
             "personality": view["personality"],
             "emotion": view["emotion"],
+            "relations": state.characters.get(pov, {}).get("relations", {}),
+            "relation_reasons": state.characters.get(pov, {}).get("relation_reasons", {}),
             "emotional_arc": (view["arc"] or {}).get("states") if view["arc"] else None,
         },
         "others": {

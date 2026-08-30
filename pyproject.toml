@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "npl-engine"
-version = "0.4.0"
+version = "0.5.0"
 description = "NPL 叙事编程系统 — 叙事即程序：认知世界机 + 确定性快照 + 泄漏检查器"
 readme = "README.md"
 license = { text = "MIT" }

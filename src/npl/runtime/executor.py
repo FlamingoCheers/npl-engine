@@ -47,6 +47,7 @@ class SimulationResult:
         self.snapshots = []   # list[dict]：每幕后完整状态快照
         self.irs = []         # list[dict]：每幕 Scene IR
         self.changes = []     # list[dict]：每幕认知变更
+        self.intent_warnings = []   # v0.5：章节级 intent 检查（NAR-071/072/073）
 
 
 def resolve_access(scene):
@@ -139,6 +140,17 @@ def execute_scene(state: RuntimeState, scene, scene_index: int,
             elif ref.action in SUSPECT_VERBS:
                 state.suspect(ref.actor, arg, DEFAULT_SUSPECT_CONFIDENCE)
 
+    # v0.5 关系变更：绝对置值语义（ISA §relation_changes）
+    relations_set = {}
+    for rc in scene.relation_changes:
+        cinfo = state.characters.get(rc.subject)
+        if cinfo is None:
+            continue
+        cinfo.setdefault("relations", {}).setdefault(rc.target, {})[rc.attitude] = rc.value
+        if rc.reason:
+            cinfo.setdefault("relation_reasons", {}).setdefault(rc.target, {})[rc.attitude] = rc.reason
+        relations_set[f"{rc.subject}->{rc.target}.{rc.attitude}"] = rc.value
+
     for arc in scene.emotional_arc:
         state.apply_arc(arc.character, arc.states)
 
@@ -176,9 +188,57 @@ def execute_scene(state: RuntimeState, scene, scene_index: int,
         "believes_added": delta("believes"),
         "suspects_added": delta("suspects"),
         "hides_added": delta("hides"),
+        "relations_set": relations_set,
     }
     ir = build_ir(state, scene, scene_index, presentation, reveals, conceals)
     return ir, changes, pending_withholds
+
+
+def evaluate_intents(program, result):
+    """v0.5 章节级 intent 聚合检查（ISA §intent）：返回 [{code, message}]。
+
+    NAR-071 goal   —— 读者直到末幕仍不知道 arg → 章节目标未达成；
+    NAR-072 forbid —— arg 出现任一幕的 reader_knows → 章节禁忌被打破；
+    NAR-073 pacing —— suspicion_up：arg 的全员最大怀疑置信度序列出现回落。
+    """
+    warnings = []
+    final_knows = set()
+    if result.snapshots:
+        final_knows = set(result.snapshots[-1]["state"]["narrative"]["reader_knows"])
+    for line in program.intents:
+        if line.kind == "goal":
+            if line.arg not in final_knows:
+                warnings.append({
+                    "code": "NAR-071",
+                    "message": f"章节目标未达成：读者直到章末也不知道 {line.arg}"})
+        elif line.kind == "forbid":
+            for snap in result.snapshots:
+                if line.arg in snap["state"]["narrative"]["reader_knows"]:
+                    warnings.append({
+                        "code": "NAR-072",
+                        "message": (f"章节禁忌被打破：{line.arg} 于第 "
+                                    f"{snap['meta']['scene_index']} 幕进入读者认知")})
+                    break
+        elif line.kind == "pacing":
+            if line.pacing_kind != "suspicion_up":
+                continue
+            seq = []
+            for snap in result.snapshots:
+                mx = None
+                for cinfo in snap["state"]["characters"].values():
+                    v = cinfo.get("suspects", {}).get(line.arg)
+                    if v is not None and (mx is None or v > mx):
+                        mx = v
+                if mx is not None:
+                    seq.append((snap["meta"]["scene_index"], mx))
+            for (i, prev), (j, cur) in zip(seq, seq[1:]):
+                if cur < prev:
+                    warnings.append({
+                        "code": "NAR-073",
+                        "message": (f"节奏意图被破坏：对 {line.arg} 的怀疑在第 "
+                                    f"{j} 幕回落（{prev} → {cur}），与 suspicion_up 相悖")})
+                    break
+    return warnings
 
 
 def simulate_continue(state, scenes, start_index=1):
@@ -204,5 +264,7 @@ def simulate_continue(state, scenes, start_index=1):
 
 
 def simulate(program):
-    """全程序确定性模拟：返回每幕的快照、IR 与认知变更。"""
-    return simulate_continue(RuntimeState.from_program(program), program.scenes, 1)
+    """全程序确定性模拟：返回每幕的快照、IR、认知变更与章节意图检查。"""
+    result = simulate_continue(RuntimeState.from_program(program), program.scenes, 1)
+    result.intent_warnings = evaluate_intents(program, result)
+    return result

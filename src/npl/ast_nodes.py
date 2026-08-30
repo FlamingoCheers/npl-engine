@@ -74,6 +74,40 @@ class Trait:
 
 
 @dataclass
+class Relation:
+    """v0.5 有向态度：声明者对 target 的 attitude 感（-1.0~1.0）。
+
+    reason 来自行尾注释（CK2 式：修饰符必须带理由，可解释、可审计）。
+    """
+    target: str
+    attitude: str
+    value: float
+    line: int
+    reason: str = None
+
+
+@dataclass
+class RelationChange:
+    """v0.5 幕内关系转换：subject 对 target 的 attitude 绝对置值。"""
+    subject: str
+    target: str
+    attitude: str
+    value: float
+    line: int
+    reason: str = None
+
+
+@dataclass
+class IntentLine:
+    """v0.5 章节意图指令行：goal/forbid/pacing。"""
+    kind: str            # goal | forbid | pacing
+    arg: str             # 目标命题 id
+    pacing_kind: str = None   # 仅 pacing：suspicion_up
+    line: int = 0
+    desc: str = None
+
+
+@dataclass
 class CharacterDecl:
     """CHARACTER 原语：人物声明块。desc 来自块首行尾注释（身份/角色）。"""
     name: str
@@ -87,6 +121,7 @@ class CharacterDecl:
     goal: list = field(default_factory=list)           # list[Prop]
     personality: list = field(default_factory=list)    # list[Trait] 慢变量
     emotion: list = field(default_factory=list)        # list[Trait] 快变量
+    relations: list = field(default_factory=list)      # v0.5 list[Relation] 有向态度
 
 
 @dataclass
@@ -202,6 +237,7 @@ class SceneDecl:
     foreshadows: list = field(default_factory=list)        # M4 list[LiteraryRef]
     withholds: list = field(default_factory=list)          # M4 list[WithholdRef]
     misdirects: list = field(default_factory=list)         # M4 list[LiteraryRef]
+    relation_changes: list = field(default_factory=list)   # v0.5 list[RelationChange]
 
 
 @dataclass
@@ -273,6 +309,7 @@ class Program:
     scenes: list = field(default_factory=list)          # list[SceneDecl]
     render: RenderDecl = None
     styles: list = field(default_factory=list)          # M4 list[StyleDecl]
+    intents: list = field(default_factory=list)         # v0.5 list[IntentLine]
     imports: list = field(default_factory=list)         # v0.2 list[ImportDecl]（仅入口文件填充）
     source_files: list = field(default_factory=list)    # v0.2 参与合并的文件路径（有序）
 
