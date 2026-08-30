@@ -1,0 +1,66 @@
+npl@0.2
+import "veins.npl" // 北境灵脉题材包：世界事实/实体/进程全部来自包
+
+// ============================================================
+// 《塌》—— 题材包复用演示（两幕，含倒序观察与Reader节奏）
+// 验证点：包内事实可直接驱动世界动词；进程乱序检查生效。
+// ============================================================
+
+character 阿岩 { // 集市石匠，最先看见裂痕
+    personality:
+        好奇 = 0.7
+}
+
+character 老祭司 { // 龙裔祭司团末代成员
+    personality:
+        守密 = 0.9
+    suspects:
+        灵脉不稳 (0.4) // 井水变味起，他心里有数
+}
+
+information 灵脉不稳 {
+    truth = 灵脉不稳
+    known_by = []
+    unknown_to = [阿岩, 老祭司]
+    public = false
+}
+
+information 灵脉裂痕已现 {
+    truth = 灵脉裂痕已现
+    known_by = []
+    unknown_to = [阿岩, 老祭司]
+    public = false
+}
+
+scene "集市日" {
+    pov = 阿岩
+    participants = [阿岩]
+    dramatic_goal {
+        reveal = 灵脉裂痕已现
+    }
+    events {
+        灵脉.sets(灵脉不稳) // 入冬以来第一次：井水变味
+    }
+    information_changes {
+        阿岩.notices(灵脉不稳) // 石匠的眼睛骗不了
+    }
+}
+
+scene "坛前" {
+    pov = 老祭司
+    participants = [老祭司, 阿岩]
+    dramatic_goal {
+        reveal = 灵脉坍塌
+    }
+    information_changes {
+        灵脉.sets(灵脉裂痕已现) // 祭坛之下，第一道裂痕张开
+        老祭司.confirms(灵脉裂痕已现)
+        阿岩.discovers(灵脉裂痕已现)
+        老祭司.hides(灵脉不稳) // 他不说井水的事
+    }
+}
+
+render {
+    style = restrained_literary
+    language = zh
+}

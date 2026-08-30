@@ -1,0 +1,73 @@
+{
+ "i": 1,
+ "chars": 1094,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“3号。”"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“我给他开的门。”"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“说他那天在厂里看过，觉得冲床还能用。”"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“我给他开的门。”他说。“哪天？”“3号。”"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“3号。”"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“我给他开的门。”"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“说他那天在厂里看过，觉得冲床还能用。”"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“我给他开的门。”他说。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“买家什么时候看过厂？”林问。"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "“哪天？” “3号。” “3月3号。”"
+  }
+ },
+ "failed": null
+}

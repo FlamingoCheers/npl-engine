@@ -1,0 +1,202 @@
+// 章节一《定金》—— M3 验收样例
+// 结构：闪回开场（倒叙）→ 信息逐层释放 → 双重嵌套认知 → conceal 守到章末
+npl@0.1
+
+world 家庭秘密 {
+    location = teahouse             // 城南茶楼
+    location = home                 // 家
+    location = study                // 家中书房
+    location = backyard             // 后院
+
+    entity contract_copy {
+        desc = 合同复印件
+    }
+    entity stack_of_burned_papers {
+        desc = 后院烧掉的一叠纸
+    }
+
+    fact bao_met_buyer_march_3rd = true  // 三月三日，包在茶楼见了买家
+    fact buyer_paid_deposit = true  // 买家已付定金，交易进入实质阶段
+    fact lin_has_seen_contract_copy = true  // 林在书房抽屉里收着一张合同复印件
+    fact lin_knows_nothing = false  // 世界真值：林并非一无所知
+    fact bao_second_mortgage_secret = true  // 包背着家里做了房产二次抵押
+    fact xiao_saw_bao_burn_papers = true  // 小满见过包深夜在后院烧纸
+    fact marriage_is_effectively_over = true  // 这段婚姻实际上已经结束
+    fact bao_burning_letters = false  // 世界真值：包烧的不是信（小满的误读）
+}
+
+information meta_knowledge {    // 元认知不对称：Bao 不知道 Lin 已经知道
+    truth = lin_has_seen_contract_copy
+    known_by = [Lin]
+    unknown_to = [Bao, Xiao]
+    public = false
+}
+
+character Lin {    // 林，女，Bao 的妻子。克制、痛感延迟；握着复印件，怀疑妻子抵押了房子
+    personality:
+        克制 = 0.9
+        观察者式的冷静 = 0.85
+    knows:
+        bao_met_buyer_march_3rd
+        lin_has_seen_contract_copy
+        marriage_is_effectively_over
+    believes:
+        Bao.does_not_know(lin_has_seen_contract_copy)  // 我还收着复印件，她并不知道
+    suspects:
+        bao_second_mortgage_secret (0.35)  // 账本窟窿对不上——她是不是背着我抵押了房子？
+}
+
+character Bao {    // 包，男，Lin 的丈夫。背着家里接触买家、做了二次抵押；以为林一无所知
+    personality:
+        精于算计 = 0.9
+        惯于掩饰 = 0.85
+    knows:
+        bao_met_buyer_march_3rd  // 茶楼会面他是当事人
+        buyer_paid_deposit  // 定金收没收，他这个卖方最清楚
+    believes:
+        lin_knows_nothing  // 她一直以为林对一切一无所知
+        Xiao.does_not_know(bao_second_mortgage_secret)  // 小满什么都没看见
+}
+
+character Xiao {   // 小满，女，十四岁，两人的女儿。早熟、沉默，看见了不该看的
+    personality:
+        早熟 = 0.8
+        沉默的忠诚 = 0.9
+    knows:
+        xiao_saw_bao_burn_papers
+}
+
+scene "旧照片" {
+    location = teahouse
+    world_time = 2047-03-03 15:20
+    flashback = true  // 闪回：三月三日的茶楼
+    pov = Lin
+    participants = [Lin, Bao]
+    motifs {
+        茶杯 = introduce // 茶楼里那只缺口茶杯，林的手指贴着杯沿
+    }
+    foreshadows {
+        buyer_paid_deposit  // 隔壁桌电话里冒出"定金"二字，一笔带过
+    }
+    withholds {
+        bao_second_mortgage_secret until = 4  // 按住：抵押的秘密到书房一幕才揭
+    }
+    events {
+        Lin.recalls(contract_copy)  // 触景：包抬头的那一瞬，林想起抽屉里那张复印件
+    }
+    information_changes {
+        Lin.realizes(bao_met_buyer_march_3rd)  // 林认出了对面的人——买家
+    }
+    dramatic_goal {
+        reveal = bao_met_buyer_march_3rd  // 读者得知：三月三日的会面确凿
+        conceal = lin_has_seen_contract_copy  // 此刻读者还不知道林见过复印件
+    }
+    emotional_arc {
+        Lin: 起疑 -> 验证 -> 冰面下的疼
+}
+    }
+
+scene "变味的账单" {
+    location = home
+    world_time = 2047-03-17 23:40
+    pov = Lin
+    participants = [Lin, Bao]
+    motifs {
+        茶杯 = recurrence // 林手边那杯茶凉透了，她一口没喝
+    }
+    events {
+        Lin.hides(buyer_paid_deposit)  // 林把流水账本合上，若无其事
+        Bao.hides(bao_second_mortgage_secret)  // 包的回答滴水不漏
+    }
+    information_changes {
+        Lin.realizes(buyer_paid_deposit)  // 林在账本里对出了那笔定金
+        Lin.suspects(bao_second_mortgage_secret)  // 怀疑升级
+    }
+    dramatic_goal {
+        reveal = lin_has_seen_contract_copy  // 读者此刻得知：林早就见过复印件
+        reveal = buyer_paid_deposit  // 读者得知：交易已进入实质阶段
+        conceal = bao_second_mortgage_secret  // 二次抵押只可暗示，不可说破
+    }
+    emotional_arc {
+        Lin: 冷静试探 -> 确认 -> 收拢
+        Bao: 掩饰 -> 察觉风向 -> 加倍温柔
+}
+    }
+
+scene "烧纸的火光" {
+    location = backyard
+    world_time = 2047-03-20 22:10
+    pov = Xiao
+    participants = [Xiao, Bao]
+    misdirects {
+        bao_burning_letters  // 小满以为烧的是写坏的信——世界真值：不是
+    }
+    events {
+        Bao.hides(bao_second_mortgage_secret)  // 深夜在后院烧掉一叠纸
+        Xiao.suspects(bao_second_mortgage_secret)  // 小满看见纸上有字，起疑但没有确证
+    }
+    dramatic_goal {
+        conceal = bao_second_mortgage_secret  // 从女儿视角只见火光，不点破内容
+        conceal = meta_knowledge  // 严禁泄露：林早已知情
+    }
+    emotional_arc {
+        Xiao: 不安 -> 观望 -> 无声的忠诚
+        Bao: 慌乱 -> 负罪
+}
+    }
+
+scene "深夜书房" {
+    location = study
+    world_time = 2047-03-21 23:05
+    pov = Lin
+    participants = [Lin, Bao]
+    events {
+        Lin.hides(lin_has_seen_contract_copy)  // 林把复印件放回抽屉最底层
+    }
+    information_changes {
+        Lin.realizes(bao_second_mortgage_secret)  // 疑心落地：抵押文件就夹在合同里
+        Bao.misunderstands(lin_has_seen_contract_copy)  // 包断定：林绝不可能见过
+    }
+    dramatic_goal {
+        reveal = bao_second_mortgage_secret  // 读者此刻恍然：烧纸烧的就是这个
+    }
+    emotional_arc {
+        Lin: 验证 -> 冰面彻底冻住 -> 决定摊牌
+        Bao: 想当然的安心 -> 孤注一掷
+}
+    }
+
+scene "摊牌前夜" {
+    location = home
+    world_time = 2047-03-22 06:50
+    pov = Lin
+    participants = [Lin, Bao]
+    motifs {
+        茶杯 = final // 餐桌上两只茶杯，一只始终没动
+    }
+    events {
+        Lin.reveals(lin_has_seen_contract_copy)  // 林把复印件放在餐桌上
+    }
+    information_changes {
+        Bao.realizes(lin_has_seen_contract_copy)  // 包看见复印件的一瞬，知道全盘错了
+    }
+    dramatic_goal {
+        reveal = marriage_is_effectively_over  // 章末情感真相：婚姻已经结束
+        conceal = bao_second_mortgage_secret  // 林握着抵押的秘密不说——章末仍守住
+    }
+    emotional_arc {
+        Lin: 平静 -> 冷静摊牌
+        Bao: 负罪 -> 孤注一掷 -> 崩塌
+}
+    }
+
+render {
+    style = restrained_literary
+    language = zh
+}
+
+style restrained_literary {    // M4：文件级风格覆写（与预设合并）
+    sentence_max = 22
+    desc = "冷调克制的家常写实，厨房与机械意象优先"
+    rule = "厨房与机械意象优先，避免华丽修辞"
+}

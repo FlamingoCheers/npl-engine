@@ -1,0 +1,69 @@
+{
+ "i": 3,
+ "chars": 792,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "false",
+    "asserted_by": "Bao",
+    "span": "去跑贷款了。城南那家。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "她知道三号那天他不在城南。她不需要再问。她也没有揭穿。"
+   },
+   {
+    "fact": "buyer_paid_deposit",
+    "asserted": "uncertain",
+    "asserted_by": "Bao",
+    "span": "买家那边催得紧。"
+   },
+   {
+    "fact": "bao_signed_the_transfer",
+    "asserted": "uncertain",
+    "asserted_by": "Bao",
+    "span": "说了一个日期。又说了一件事。那件事和那个日期连在一起，从他嘴里滑出来，落进她耳朵里。"
+   },
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "false",
+    "asserted_by": "narration",
+    "span": "她知道三号那天他不在城南。她不需要再问。"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号那天你没在厂里。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号那天你没在厂里。……她知道三号那天他不在城南。她不需要再问。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_signed_the_transfer",
+    "span": "她听见了。手指在拉杆上收紧了一下。"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "她知道三号那天他不在城南。她不需要再问。她也没有揭穿。"
+  }
+ },
+ "failed": null
+}

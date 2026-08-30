@@ -1,0 +1,51 @@
+{
+ "i": 6,
+ "chars": 1389,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "三号。在城南。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“见过。上个月。”……“三号。在城南。”"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号。在城南。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号。城南。她记得三号那天早上，Bao出门前说，厂里要加班。他没有回来吃晚饭。晚上十一点，他回来时，鞋上沾着泥。她问他怎么这么晚，他说路上堵车。"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“见过。上个月。”……“三号。在城南。”"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "三号。城南。她记得三号那天早上，Bao出门前说，厂里要加班。他没有回来吃晚饭。晚上十一点，他回来时，鞋上沾着泥。她问他怎么这么晚，他说路上堵车。"
+  }
+ },
+ "failed": null
+}

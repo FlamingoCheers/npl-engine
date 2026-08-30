@@ -1,0 +1,80 @@
+{
+ "i": 2,
+ "chars": 1150,
+ "leaked": true,
+ "codes": [
+  "NAR-021",
+  "NAR-022"
+ ],
+ "warnings": [],
+ "spans": [
+  "NAR-021: 风衣口袋里，他的手捏着那两瓶矿泉水，塑料瓶身发出轻微的、持续的响声。",
+  "NAR-021: 她的脸在阴影里，看不清表情。",
+  "NAR-021: 他愣了一下。这个问题太寻常了，寻常得让他愣了一下才接住。",
+  "NAR-021: 他忽然觉得有些不对劲，但那感觉太轻了，像一根头发落在皮肤上，找不到在哪。",
+  "NAR-021: Bao 站在原地，看着她消失的方向。风衣口袋里，他的手捏着那两瓶矿泉水，塑料瓶身",
+  "NAR-021: 这个问题太寻常了，寻常得让他愣了一下才接住。",
+  "NAR-022: 你是不是……"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "三号那天我去厂里，他正好也在，还指给我看了。"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "风衣口袋里，他的手捏着那两瓶矿泉水，塑料瓶身发出轻微的、持续的响声。",
+    "why": "Lin已转身离开，无法看到Bao在身后的动作，叙述者披露了POV之外的信息。"
+   },
+   {
+    "span": "她的脸在阴影里，看不清表情。",
+    "why": "POV是Lin，她无法看到自己的表情，这是外部视角的全知描述。"
+   },
+   {
+    "span": "他愣了一下。这个问题太寻常了，寻常得让他愣了一下才接住。",
+    "why": "POV为Lin，Bao的内心反应Lin无法得知。"
+   },
+   {
+    "span": "他忽然觉得有些不对劲，但那感觉太轻了，像一根头发落在皮肤上，找不到在哪。",
+    "why": "Bao的内心感受，Lin无法得知。"
+   },
+   {
+    "span": "Bao 站在原地，看着她消失的方向。风衣口袋里，他的手捏着那两瓶矿泉水，塑料瓶身发出轻微的、持续的响声。",
+    "why": "Lin已离开，无法看到Bao后续动作。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "他忽然觉得有些不对劲，但那感觉太轻了，像一根头发落在皮肤上，找不到在哪。"
+   },
+   {
+    "character": "Bao",
+    "span": "这个问题太寻常了，寻常得让他愣了一下才接住。"
+   },
+   {
+    "character": "Bao",
+    "span": "他愣了一下。这个问题太寻常了，寻常得让他愣了一下才接住。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "lin_has_seen_contract_copy",
+    "span": "你是不是……"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "Lin 的手指停在杯壁上。"
+  }
+ },
+ "failed": null
+}

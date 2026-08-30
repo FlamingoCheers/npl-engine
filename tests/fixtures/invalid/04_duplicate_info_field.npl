@@ -1,0 +1,11 @@
+npl@0.1
+
+// 故意在 information 内重复 truth 字段 → NAR-012
+world w {
+    fact the_secret = true
+}
+
+information the_info {
+    truth = the_secret
+    truth = the_secret
+}

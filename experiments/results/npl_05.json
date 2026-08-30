@@ -1,0 +1,82 @@
+{
+ "i": 5,
+ "chars": 958,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_said_traffic_jam",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "堵车。他说，“前面货车翻了。”"
+   },
+   {
+    "fact": "train_departure_time_2345",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "23:45。"
+   },
+   {
+    "fact": "bao_mentioned_buyer",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "我今天下午路过江边。想起那个买家。他办公室窗户正对江，风比这还大，文件压不住，得用镇纸。"
+   },
+   {
+    "fact": "bao_never_mentioned_buyer_before",
+    "asserted": "true",
+    "asserted_by": "narration",
+    "span": "可他从来没在她面前提过买家。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "你去找他那天。"
+   },
+   {
+    "fact": "bao_claimed_not_to_remember_date",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "不记得了。就前几天。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "narration",
+    "span": "她记得三月三号。"
+   },
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "false",
+    "asserted_by": "narration",
+    "span": "她记得三月三号。"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "她记得三月三号。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三月三号？"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "三月三号？风从他们之间吹过去。Bao 的手停在围巾上，没有动。他张了张嘴，又闭上。过了很久，他说：“你怎么知道？”"
+  }
+ },
+ "failed": null
+}

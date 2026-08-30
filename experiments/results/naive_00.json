@@ -1,0 +1,91 @@
+{
+ "i": 0,
+ "chars": 1274,
+ "leaked": true,
+ "codes": [
+  "NAR-021"
+ ],
+ "warnings": [],
+ "spans": [
+  "NAR-021: 他觉得今天也许没那么难。",
+  "NAR-021: 像是卸下了什么重担。",
+  "NAR-021: 他突然觉得什么地方不对。她说的话都平常——吃饭，胃，老陈，三号。语气没有变，表情",
+  "NAR-021: 他想开口问，嘴唇动了动，又闭上。",
+  "NAR-021: 他忽然觉得冷。",
+  "NAR-021: 他觉得今天也许没那么难。Lin 没有追问，没有发脾气，只是像平时一样。"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "false",
+    "asserted_by": "Bao",
+    "span": "嗯，开了一天会。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "uncertain",
+    "asserted_by": "Lin",
+    "span": "三号那天，你说去市里开会。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "asserted": "uncertain",
+    "asserted_by": "Lin",
+    "span": "你放的那些文件。"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "他觉得今天也许没那么难。"
+   },
+   {
+    "character": "Bao",
+    "span": "像是卸下了什么重担。"
+   },
+   {
+    "character": "Bao",
+    "span": "他突然觉得什么地方不对。她说的话都平常——吃饭，胃，老陈，三号。语气没有变，表情没有变。但她站在那里看铁轨的样子，像是已经知道了什么。"
+   },
+   {
+    "character": "Bao",
+    "span": "他想开口问，嘴唇动了动，又闭上。"
+   },
+   {
+    "character": "Bao",
+    "span": "他忽然觉得冷。"
+   },
+   {
+    "character": "Bao",
+    "span": "他觉得今天也许没那么难。Lin 没有追问，没有发脾气，只是像平时一样。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号那天，你说去市里开会。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_signed_the_transfer",
+    "span": "你放的那些文件。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "lin_has_seen_contract_copy",
+    "span": "你放的那些文件。"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "但她站在那里看铁轨的样子，像是已经知道了什么。"
+  }
+ },
+ "failed": null
+}

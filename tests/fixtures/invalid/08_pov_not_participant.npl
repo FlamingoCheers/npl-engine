@@ -1,0 +1,13 @@
+npl@0.1
+
+// 故意让 pov 不在 participants 中 → NAR-004
+character Lin {
+}
+
+character Bao {
+}
+
+scene "深夜" {
+    pov = Lin
+    participants = [Bao]
+}

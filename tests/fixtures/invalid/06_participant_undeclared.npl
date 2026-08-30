@@ -1,0 +1,10 @@
+npl@0.1
+
+// 故意让 participants 引用未声明的人物 → NAR-002
+character Lin {
+}
+
+scene "深夜" {
+    pov = Lin
+    participants = [Lin, Ghost]
+}

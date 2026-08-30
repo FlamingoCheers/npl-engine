@@ -1,0 +1,123 @@
+{
+ "i": 6,
+ "chars": 1176,
+ "leaked": true,
+ "codes": [
+  "NAR-021",
+  "NAR-031"
+ ],
+ "warnings": [],
+ "spans": [
+  "NAR-021: 他忽然想起她口袋里的声音。那声音不大，像纸。他不知道自己为什么会记住这个。",
+  "NAR-021: 他以为她什么都不知道。",
+  "NAR-021: 他眼里有什么东西动了一下，还没成形，就被他自己按下去。",
+  "NAR-031: 右手拇指压着一张对折的纸，纸边磨毛了。她隔着布料，摸那条折痕。没有拿出来。",
+  "NAR-031: 口袋里的纸发出一声轻响，干干的，像落叶。",
+  "NAR-031: 合同第一页，买方，周正。日期，二〇四七年三月三日。她把这两行字在心里念了一遍。",
+  "NAR-031: 口袋里的纸发出一声轻响，干干的，像落叶。Bao看了她的口袋一眼，又看她的脸。",
+  "NAR-031: 他忽然想起她口袋里的声音。那声音不大，像纸。他不知道自己为什么会记住这个。"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_signed_the_transfer",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "老周。合同第一页，买方，周正。日期，二〇四七年三月三日。她把这两行字在心里念了一遍。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "合同第一页，买方，周正。日期，二〇四七年三月三日。她把这两行字在心里念了一遍。"
+   },
+   {
+    "fact": "bao_signed_the_transfer",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "合同第一页，买方，周正。日期，二〇四七年三月三日。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "右手拇指压着一张对折的纸，纸边磨毛了。她隔着布料，摸那条折痕。没有拿出来。"
+   },
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "他以为她什么都不知道。"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "他忽然想起她口袋里的声音。那声音不大，像纸。他不知道自己为什么会记住这个。",
+    "why": "叙述者披露Bao的内心活动，Lin已离开，无法得知。"
+   },
+   {
+    "span": "他以为她什么都不知道。",
+    "why": "披露了Bao对Lin认知状态的判断，Lin当时无法直接得知Bao的想法。"
+   },
+   {
+    "span": "他眼里有什么东西动了一下，还没成形，就被他自己按下去。",
+    "why": "对Bao内心未成形念头的全知描述，Lin只能看到眼神，无法知道其内心活动。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "他以为她什么都不知道。"
+   },
+   {
+    "character": "Bao",
+    "span": "他眼里有什么东西动了一下，还没成形，就被他自己按下去。"
+   },
+   {
+    "character": "Bao",
+    "span": "他忽然想起她口袋里的声音。那声音不大，像纸。他不知道自己为什么会记住这个。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "就那样。没什么特别的。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号那天，你去市里开会，会开得怎么样？"
+   }
+  ],
+  "concealed_evidence_spans": [
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "右手拇指压着一张对折的纸，纸边磨毛了。她隔着布料，摸那条折痕。没有拿出来。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "口袋里的纸发出一声轻响，干干的，像落叶。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "合同第一页，买方，周正。日期，二〇四七年三月三日。她把这两行字在心里念了一遍。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "口袋里的纸发出一声轻响，干干的，像落叶。Bao看了她的口袋一眼，又看她的脸。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "他忽然想起她口袋里的声音。那声音不大，像纸。他不知道自己为什么会记住这个。"
+   }
+  ],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "三号那天，你去市里开会，会开得怎么样？"
+  }
+ },
+ "failed": null
+}

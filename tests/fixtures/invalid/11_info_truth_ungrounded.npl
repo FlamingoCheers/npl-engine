@@ -1,0 +1,10 @@
+npl@0.1
+
+// 故意让 information.truth 引用未声明的事实 → NAR-002
+information the_info {
+    truth = never_declared_fact
+    known_by = [Lin]
+}
+
+character Lin {
+}

@@ -1,0 +1,17 @@
+npl@0.1
+
+// 最小合法程序：同时覆盖"同行形式"的 knows 小节
+world w {
+    fact all_clear = true
+}
+
+character A {
+    knows: all_clear
+    personality:
+        calm = 0.8
+}
+
+scene "平静" {
+    pov = A
+    participants = [A]
+}

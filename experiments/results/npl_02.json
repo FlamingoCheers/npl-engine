@@ -1,0 +1,35 @@
+{
+ "i": 2,
+ "chars": 1038,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "false",
+    "asserted_by": "Bao",
+    "span": "三月三号那晚在厂里加班，连饭都没吃"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "她想起上个月，他跟她说过，三月三号那晚在厂里加班，连饭都没吃。他回来的时候，外套上确实有一股烟味。她当时没问。"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "她当时没问。现在她也没有问。"
+  }
+ },
+ "failed": null
+}

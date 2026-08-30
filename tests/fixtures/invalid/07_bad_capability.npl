@@ -1,0 +1,13 @@
+npl@0.1
+
+// 故意使用未知能力名 telepathy → NAR-003
+character Lin {
+}
+
+scene "深夜" {
+    pov = Lin
+    participants = [Lin]
+    access {
+        deny = Lin.telepathy
+    }
+}

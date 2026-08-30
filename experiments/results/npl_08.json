@@ -1,0 +1,51 @@
+{
+ "i": 8,
+ "chars": 1011,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“三号晚上见的。”"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "三号晚上见的。"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“三号晚上见的。”"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号。她记得三号晚上。他回家时说加班，说头晕，进门把外套搭在椅背上，没有看她。那天下过雨，他鞋底沾着泥。"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号晚上见的。"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "她垂下眼睛。够了。"
+  }
+ },
+ "failed": null
+}

@@ -1,0 +1,8 @@
+npl@0.1
+
+// 故意重复声明同名人物 → NAR-011
+character Lin {
+}
+
+character Lin {
+}

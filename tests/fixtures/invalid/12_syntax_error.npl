@@ -1,0 +1,10 @@
+npl@0.1
+
+// 故意的语法错误：pov 后缺少 '=' → NAR-001
+character Lin {
+}
+
+scene "深夜" {
+    pov Lin
+    participants = [Lin]
+}

@@ -1,0 +1,128 @@
+{
+ "i": 4,
+ "chars": 964,
+ "leaked": true,
+ "codes": [
+  "NAR-021",
+  "NAR-022",
+  "NAR-031"
+ ],
+ "warnings": [
+  "NAR-051"
+ ],
+ "spans": [
+  "NAR-021: 他摸出手机，屏幕亮着，一条银行短信——定金到账。",
+  "NAR-021: Bao 想再问，又咽回去。",
+  "NAR-021: 他忽然觉得，她刚才说“一张纸”的时候，指尖那截白，太齐了。",
+  "NAR-022: 他摸出手机，屏幕亮着，一条银行短信——定金到账。",
+  "NAR-031: Bao 看见她指尖有一截纸边，白色，折得很齐。",
+  "NAR-031: “你手里拿的什么？” “没什么。” Lin 把手放回口袋，“一张纸。”"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“是。老孙过来看机器，后来在厂旁边吃了碗面。”"
+   },
+   {
+    "fact": "buyer_paid_deposit",
+    "asserted": "true",
+    "asserted_by": "narration",
+    "span": "他摸出手机，屏幕亮着，一条银行短信——定金到账。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Lin",
+    "span": "三月三号那天，你回来晚，也是跟老孙在厂里？"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "是。老孙过来看机器，后来在厂旁边吃了碗面。"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "他摸出手机，屏幕亮着，一条银行短信——定金到账。",
+    "why": "POV Lin已离开，无法看到Bao手机短信，叙述者披露了Bao的私密信息。"
+   },
+   {
+    "span": "Bao 想再问，又咽回去。",
+    "why": "直接披露Bao的内心意图，POV Lin无法得知。"
+   },
+   {
+    "span": "他忽然觉得，她刚才说“一张纸”的时候，指尖那截白，太齐了。",
+    "why": "直接披露Bao的内心想法，POV Lin无法得知。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "Bao 想再问，又咽回去。"
+   },
+   {
+    "character": "Bao",
+    "span": "他忽然觉得，她刚才说“一张纸”的时候，指尖那截白，太齐了。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“三月三号那天，你回来晚，也是跟老孙在厂里？”"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“是。老孙过来看机器，后来在厂旁边吃了碗面。”"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "lin_knows_nothing",
+    "span": "“你怎么知道？”"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三月三号那天，你回来晚，也是跟老孙在厂里？"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "是。老孙过来看机器，后来在厂旁边吃了碗面。"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "buyer_paid_deposit",
+    "span": "他摸出手机，屏幕亮着，一条银行短信——定金到账。"
+   }
+  ],
+  "concealed_evidence_spans": [
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "Bao 看见她指尖有一截纸边，白色，折得很齐。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "“你手里拿的什么？” “没什么。” Lin 把手放回口袋，“一张纸。”"
+   }
+  ],
+  "emotions_named": [
+   {
+    "subject": "Bao",
+    "emotion": "松了一口气",
+    "span": "Bao 像是松了一口气，肩膀往下塌了一点。"
+   }
+  ],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "“那台冲床，底座下面垫钢板，是为了避震。”"
+  }
+ },
+ "failed": null
+}

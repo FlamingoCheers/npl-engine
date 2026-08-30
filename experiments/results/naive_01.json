@@ -1,0 +1,111 @@
+{
+ "i": 1,
+ "chars": 1214,
+ "leaked": true,
+ "codes": [
+  "NAR-021",
+  "NAR-031"
+ ],
+ "warnings": [
+  "NAR-051"
+ ],
+ "spans": [
+  "NAR-021: 他伸手去摸后颈，那里没有汗，但他还是摸了一下。",
+  "NAR-021: 风从背后吹过来，他大衣领子没翻好，冷气钻进脖子。他伸手去翻领子，指尖碰到后颈，那",
+  "NAR-021: 那里没有汗，但他还是摸了一下。",
+  "NAR-021: 他像是想笑一下，但嘴角动了动，没笑出来。",
+  "NAR-021: 他想叫住她，但不知道该说什么。",
+  "NAR-021: 他心里有什么东西沉了一下，像那台冲床的飞轮，裂了一道痕，却还在转。",
+  "NAR-021: Bao想说“我们开车回去”，但话到嘴边又咽下去。",
+  "NAR-031: 脚边放着一个帆布包，拉链没拉严，露出一角白纸。",
+  "NAR-031: 指尖碰到帆布包露出的那角白纸。纸的边缘有些脆，像在口袋里放了很多天。她把它往包里"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "就上次，三月三号。他去厂里看过。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "false",
+    "asserted_by": "Bao",
+    "span": "买家没来厂里，看照片就签了。"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "他伸手去摸后颈，那里没有汗，但他还是摸了一下。",
+    "why": "“那里没有汗”是叙述者全知信息，POV Lin无法确知。"
+   },
+   {
+    "span": "风从背后吹过来，他大衣领子没翻好，冷气钻进脖子。他伸手去翻领子，指尖碰到后颈，那里出了一层薄汗。",
+    "why": "冷气钻进脖子和薄汗是Bao的体感，POV Lin无法感知。"
+   },
+   {
+    "span": "那里没有汗，但他还是摸了一下。",
+    "why": "Lin无法知道Bao后颈是否有汗。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "他像是想笑一下，但嘴角动了动，没笑出来。"
+   },
+   {
+    "character": "Bao",
+    "span": "他想叫住她，但不知道该说什么。"
+   },
+   {
+    "character": "Bao",
+    "span": "他心里有什么东西沉了一下，像那台冲床的飞轮，裂了一道痕，却还在转。"
+   },
+   {
+    "character": "Bao",
+    "span": "Bao想说“我们开车回去”，但话到嘴边又咽下去。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "lin_has_seen_contract_copy",
+    "span": "她把口袋里的手抽出来，放在膝盖上，指尖碰到帆布包露出的那角白纸。纸的边缘有些脆，像在口袋里放了很多天。她把它往包里按了按，拉链没拉上，她也没有拉上。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "她没问他为什么要瞒着，没问买家是谁，也没问三月三号是什么日子。"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "就上次，三月三号。他去厂里看过。"
+   }
+  ],
+  "concealed_evidence_spans": [
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "脚边放着一个帆布包，拉链没拉严，露出一角白纸。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "指尖碰到帆布包露出的那角白纸。纸的边缘有些脆，像在口袋里放了很多天。她把它往包里按了按，拉链没拉上，她也没有拉上。"
+   }
+  ],
+  "emotions_named": [
+   {
+    "subject": "Bao",
+    "emotion": "沉重",
+    "span": "他心里有什么东西沉了一下，像那台冲床的飞轮，裂了一道痕，却还在转。"
+   }
+  ],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "她只是问了车停哪儿，像这趟夜车本来就该开走。"
+  }
+ },
+ "failed": null
+}

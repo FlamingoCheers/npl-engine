@@ -1,0 +1,4 @@
+// 故意缺失版本头（首行必须是 npl@0.1）→ NAR-010
+character Lin {
+    knows: nothing
+}

@@ -1,0 +1,64 @@
+npl@0.2  // 《定金》分支：林选择沉默——另一条时间线
+
+world 家庭秘密 {
+    location = home
+
+    fact lin_has_seen_contract_copy = true  // 林已看过合同复印件
+    fact bao_met_buyer_march_3rd = true  // 三月三日茶楼会面
+    fact buyer_paid_deposit = true  // 买家已付定金
+    fact lin_knows_nothing = false  // 表象值：包以为林一无所知
+    fact bao_second_mortgage_secret = true  // 包瞒着林做过二次抵押
+    fact xiao_saw_bao_burn_papers = true  // 小满深夜看见包烧纸
+    fact marriage_is_effectively_over = true  // 这段婚姻事实上已经结束
+    fact bao_burning_letters = false  // 包烧的不是信（小满的误读）
+}
+
+character Lin {  // 林（女，妻子）
+    knows:
+        lin_has_seen_contract_copy
+        buyer_paid_deposit
+        bao_second_mortgage_secret
+        xiao_saw_bao_burn_papers
+
+    believes:
+        lin_knows_nothing
+        Bao.does_not_know(lin_has_seen_contract_copy)  // 她笃定包不知道自己已知情
+}
+
+character Bao {  // 包（男，丈夫）
+    believes:
+        lin_knows_nothing
+}
+
+character Xiao {  // 小满（女儿，十四岁）
+    suspects:
+        bao_second_mortgage_secret
+}
+
+information meta_knowledge {  // 元认知信息
+    truth = lin_has_seen_contract_copy
+    known_by = [Lin]
+    unknown_to = [Bao, Xiao]
+    public = false
+}
+
+scene "沉默的晚餐" {
+    location = home
+    world_time = 2047-03-23 19:00
+    pov = Lin
+    participants = [Lin, Bao, Xiao]
+    events {
+        Lin.hides(marriage_is_effectively_over)  // 晚桌上照常盛汤，把一切按进碗底
+    }
+    dramatic_goal {
+        conceal = marriage_is_effectively_over  // 这条时间线里，永不揭
+    }
+    emotional_arc {
+        Lin: 假寐 -> 守住 -> 冰层加厚
+}
+    }
+
+render {
+    style = restrained_literary
+    language = zh
+}

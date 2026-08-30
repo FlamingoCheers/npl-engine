@@ -1,0 +1,16 @@
+npl@0.1
+
+// 故意让 emotional_arc 引用不在 participants 中的人物 → NAR-004
+character Lin {
+}
+
+character Bao {
+}
+
+scene "深夜" {
+    pov = Lin
+    participants = [Lin]
+    emotional_arc {
+        Bao: anxiety -> unease
+    }
+}

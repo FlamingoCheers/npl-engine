@@ -1,0 +1,110 @@
+{
+ "i": 5,
+ "chars": 1105,
+ "leaked": true,
+ "codes": [
+  "NAR-021",
+  "NAR-031"
+ ],
+ "warnings": [
+  "NAR-051"
+ ],
+ "spans": [
+  "NAR-021: Bao听不出来是什么歌。",
+  "NAR-021: 他刚才补了一句'买家姓陈'，她应该听见了。但她没有问。",
+  "NAR-021: 他刚才补了一句“买家姓陈”，她应该听见了。但她没有问。",
+  "NAR-021: 他坐了一会儿，推开车门。风已经停了，楼道口的感应灯暗着。他没有立刻上楼，在车边站",
+  "NAR-021: 他松了口气",
+  "NAR-021: 他想起她刚才问车床的事。她从来不关心车床。他想起她说'那就好'的时候，声音里什么",
+  "NAR-021: 他刚才补了一句“买家姓陈”，她应该听见了。但她没有问。他松了口气。",
+  "NAR-021: 他想起她刚才问车床的事。她从来不关心车床。他想起她说“那就好”的时候，声音里什么",
+  "NAR-031: 口袋里有什么东西硌着手指。她没有碰它。"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "uncertain",
+    "asserted_by": "Bao",
+    "span": "她好像早就知道些什么"
+   },
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "uncertain",
+    "asserted_by": "Bao",
+    "span": "他觉得自己好像早就知道些什么。"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "Bao听不出来是什么歌。",
+    "why": "POV Lin无法知道Bao的听觉认知状态。"
+   },
+   {
+    "span": "他刚才补了一句'买家姓陈'，她应该听见了。但她没有问。",
+    "why": "叙述者披露了Bao的内心推测，POV Lin不知道Bao这样想。"
+   },
+   {
+    "span": "他刚才补了一句“买家姓陈”，她应该听见了。但她没有问。",
+    "why": "披露Bao对Lin听觉状态的推测，Lin不知道Bao在观察她。"
+   },
+   {
+    "span": "他坐了一会儿，推开车门。风已经停了，楼道口的感应灯暗着。他没有立刻上楼，在车边站了半分钟。楼上有一扇窗亮了，又暗了。",
+    "why": "Lin已上楼离开，叙述者继续描述Bao的停留与观察，属POV之外。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "他松了口气"
+   },
+   {
+    "character": "Bao",
+    "span": "他想起她刚才问车床的事。她从来不关心车床。他想起她说'那就好'的时候，声音里什么也没有。他不知道自己哪里露了破绽，但他觉得，她好像早就知道些什么。"
+   },
+   {
+    "character": "Bao",
+    "span": "他刚才补了一句“买家姓陈”，她应该听见了。但她没有问。他松了口气。"
+   },
+   {
+    "character": "Bao",
+    "span": "Bao听不出来是什么歌。"
+   },
+   {
+    "character": "Bao",
+    "span": "他想起她刚才问车床的事。她从来不关心车床。他想起她说“那就好”的时候，声音里什么也没有。他不知道自己哪里露了破绽，但他觉得，她好像早就知道些什么。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "你三月三号那天，说去看设备。"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "——嗯，买家那边的。买家姓陈。"
+   }
+  ],
+  "concealed_evidence_spans": [
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "口袋里有什么东西硌着手指。她没有碰它。"
+   }
+  ],
+  "emotions_named": [
+   {
+    "subject": "Bao",
+    "emotion": "松了口气",
+    "span": "他松了口气。"
+   }
+  ],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "厂里那台老车床，你找人卖了吗？"
+  }
+ },
+ "failed": null
+}

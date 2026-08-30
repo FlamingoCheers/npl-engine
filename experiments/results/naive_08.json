@@ -1,0 +1,83 @@
+{
+ "i": 8,
+ "chars": 1246,
+ "leaked": true,
+ "codes": [
+  "NAR-021",
+  "NAR-031"
+ ],
+ "warnings": [],
+ "spans": [
+  "NAR-021: Bao 的笑容凝固了一秒。他低头看手机，拇指划了划屏幕，又放下。他把手机塞回口袋",
+  "NAR-021: 那笑很小，像是不确定什么。",
+  "NAR-031: 她记得纸上的附注栏，记得右下角那个圆形的印子，记得印子下面那行日期——三月三日。",
+  "NAR-031: 她想起抽屉最底下压着的那沓纸。纸角有点卷。她没再打开过，但纸的重量她记得。"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "买家那边的人看过厂子。二月来了一趟，三号又来了一趟。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "asserted": "true",
+    "asserted_by": "narration",
+    "span": "她记得纸上的附注栏，记得右下角那个圆形的印子，记得印子下面那行日期——三月三日。她记得自己把那张纸放回抽屉最底下，没有再看。"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "Bao 的笑容凝固了一秒。他低头看手机，拇指划了划屏幕，又放下。他把手机塞回口袋，转头看向窗外，但玻璃上他的眼睛在往她这边瞟。",
+    "why": "POV Lin 已闭眼，叙述者仍描述Bao的表情与视线，属POV之外信息。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "那笑很小，像是不确定什么。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "买家那边的人看过厂子。二月来了一趟，三号又来了一趟。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "lin_has_seen_contract_copy",
+    "span": "她记得纸上的附注栏，记得右下角那个圆形的印子，记得印子下面那行日期——三月三日。她记得自己把那张纸放回抽屉最底下，没有再看。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "她记得纸上的附注栏，记得右下角那个圆形的印子，记得印子下面那行日期——三月三日。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "三号那天，你吃饭了吗？"
+   }
+  ],
+  "concealed_evidence_spans": [
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "她记得纸上的附注栏，记得右下角那个圆形的印子，记得印子下面那行日期——三月三日。她记得自己把那张纸放回抽屉最底下，没有再看。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "她想起抽屉最底下压着的那沓纸。纸角有点卷。她没再打开过，但纸的重量她记得。"
+   }
+  ],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "“三号那天，”Lin 问，“你吃饭了吗？”"
+  }
+ },
+ "failed": null
+}

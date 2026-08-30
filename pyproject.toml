@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "npl-engine"
+version = "0.4.0"
+description = "NPL 叙事编程系统 — 叙事即程序：认知世界机 + 确定性快照 + 泄漏检查器"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "NPL Project" }]
+requires-python = ">=3.10"
+keywords = ["narrative", "epistemic-logic", "llm", "story-engine", "dsl"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Games/Entertainment",
+    "Natural Language :: Chinese (Simplified)",
+]
+# 零必需依赖：内核（lexer/parser/validator/runtime/IR/checker 离线路径）纯标准库。
+# jieba 为可选增强（意象聚类/母题追踪分词更准），缺失时自动回退 CJK bigram。
+dependencies = []
+
+[project.optional-dependencies]
+nlp = ["jieba>=0.42"]
+dev = ["pytest>=7"]
+
+[project.urls]
+# Documentation = "https://example.com/npl"
+
+[project.scripts]
+npl = "npl.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

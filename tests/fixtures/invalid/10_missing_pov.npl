@@ -1,0 +1,9 @@
+npl@0.1
+
+// 故意缺失必填字段 pov → NAR-013
+character Lin {
+}
+
+scene "深夜" {
+    participants = [Lin]
+}

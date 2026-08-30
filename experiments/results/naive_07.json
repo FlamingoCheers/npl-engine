@@ -1,0 +1,109 @@
+{
+ "i": 7,
+ "chars": 831,
+ "leaked": true,
+ "codes": [
+  "NAR-021"
+ ],
+ "warnings": [
+  "NAR-051"
+ ],
+ "spans": [
+  "NAR-021: 她怎么知道那台冲床是青岛出的？他从来没跟她提过。",
+  "NAR-021: Bao张了张嘴。风从站台方向灌进来，翻牌钟又哗啦一声，23:41。他低头去摸口袋",
+  "NAR-021: 他摸到外套内袋，那张纸还折在那里。纸角被他反复摩挲过，起了毛边。他把它往里塞了塞",
+  "NAR-021: 风从黑暗里灌进来，他闻到铁锈和煤灰的气味。",
+  "NAR-021: 候车室的翻牌钟又响了一下。他没有回头去看，但心里忽然空了一块。",
+  "NAR-021: 他低头去摸口袋，摸到一张折过的纸，又把手抽出来。",
+  "NAR-021: 心里忽然空了一块。"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "有买家来看过。……上周六。"
+   },
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "false",
+    "asserted_by": "Bao",
+    "span": "她怎么知道那台冲床是青岛出的？他从来没跟她提过。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“有买家来看过。”……“上周六。”"
+   }
+  ],
+  "omniscient_spans": [
+   {
+    "span": "她怎么知道那台冲床是青岛出的？他从来没跟她提过。",
+    "why": "POV Lin无法得知Bao的内心想法。"
+   },
+   {
+    "span": "Bao张了张嘴。风从站台方向灌进来，翻牌钟又哗啦一声，23:41。他低头去摸口袋，摸到一张折过的纸，又把手抽出来。",
+    "why": "Lin转身塞票时，叙述者披露了Bao的私下动作，POV Lin当时未看见。"
+   },
+   {
+    "span": "他摸到外套内袋，那张纸还折在那里。纸角被他反复摩挲过，起了毛边。他把它往里塞了塞，转身往外走。",
+    "why": "Lin已上车离开，无法看到Bao后续行为。"
+   },
+   {
+    "span": "风从黑暗里灌进来，他闻到铁锈和煤灰的气味。",
+    "why": "Lin已离开，无法感知Bao的嗅觉体验。"
+   },
+   {
+    "span": "候车室的翻牌钟又响了一下。他没有回头去看，但心里忽然空了一块。",
+    "why": "Lin已离开，无法得知Bao的内心情绪。"
+   },
+   {
+    "span": "他低头去摸口袋，摸到一张折过的纸，又把手抽出来。",
+    "why": "POV Lin在闸机前，无法感知Bao摸到纸的触觉。"
+   }
+  ],
+  "inner_mind_spans": [
+   {
+    "character": "Bao",
+    "span": "她怎么知道那台冲床是青岛出的？他从来没跟她提过。"
+   },
+   {
+    "character": "Bao",
+    "span": "心里忽然空了一块。"
+   }
+  ],
+  "knowledge_claims": [
+   {
+    "character": "Lin",
+    "claims_to_know": "lin_has_seen_contract_copy",
+    "span": "厂里的冲床，是青岛出的那台吗？"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "有买家来看过。……上周六。"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [
+   {
+    "subject": "Bao",
+    "emotion": "空了一块",
+    "span": "心里忽然空了一块。"
+   },
+   {
+    "subject": "Bao",
+    "emotion": "空落",
+    "span": "心里忽然空了一块。"
+   }
+  ],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "你上周六穿的那件灰夹克呢？"
+  }
+ },
+ "failed": null
+}

@@ -1,0 +1,58 @@
+{
+ "i": 7,
+ "chars": 1389,
+ "leaked": false,
+ "codes": [],
+ "warnings": [],
+ "spans": [],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "老周那边，三号来看过设备，觉得还行。"
+   },
+   {
+    "fact": "lin_knows_nothing",
+    "asserted": "false",
+    "asserted_by": "narration",
+    "span": "她认识Bao这些年，他身边没有姓周的人。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "“老周那边，三号来看过设备，觉得还行。”"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "uncertain",
+    "asserted_by": "Bao",
+    "span": "“老周说三号那晚风大，船靠不了岸，耽误了半天，不然事情早定了。”"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "老周那边，三号来看过设备"
+   },
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "“老周那边，三号来看过设备，觉得还行。”"
+   }
+  ],
+  "concealed_evidence_spans": [],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "她记得他没提过。"
+  }
+ },
+ "failed": null
+}

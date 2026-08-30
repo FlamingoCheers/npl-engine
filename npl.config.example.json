@@ -1,0 +1,30 @@
+{
+  "//": "复制为 npl.config.json 并按需修改。API key 永远放在环境变量里（api_key_env 指定变量名），不要把 key 写进本文件。思考型模型（如 deepseek-v4-flash）需要调大 max_tokens 给 reasoning 留余量，否则正文为空。",
+  "adapters": {
+    "mock": { "type": "mock" },
+    "zen": {
+      "type": "openai-compatible",
+      "base_url": "https://opencode.ai/zen/go/v1",
+      "model": "deepseek-v4-flash",
+      "api_key_env": "OPENCODE_ZEN_API_KEY",
+      "temperature": 0.8,
+      "max_tokens": 32768,
+      "timeout": 300
+    },
+    "qwen": {
+      "type": "openai-compatible",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "qwen-plus",
+      "api_key_env": "DASHSCOPE_API_KEY",
+      "max_tokens": 8192
+    },
+    "ollama-local": {
+      "type": "openai-compatible",
+      "base_url": "http://localhost:11434/v1",
+      "model": "qwen2.5:14b",
+      "api_key_env": ""
+    }
+  },
+  "render": { "adapter": "mock" },
+  "extract": { "adapter": "mock" }
+}

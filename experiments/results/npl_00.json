@@ -1,0 +1,67 @@
+{
+ "i": 0,
+ "chars": 1383,
+ "leaked": true,
+ "codes": [
+  "NAR-031"
+ ],
+ "warnings": [],
+ "spans": [
+  "NAR-031: 她抬头一瞥，看到二楼临窗的位置坐着两个人。一个是 Bao，另一个是戴金丝眼镜的男"
+ ],
+ "extraction": {
+  "fact_assertions": [
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "Bao",
+    "span": "老周说，三号在茶楼谈的那事，下个月就能定下来。"
+   },
+   {
+    "fact": "bao_met_buyer_march_3rd",
+    "asserted": "true",
+    "asserted_by": "narration",
+    "span": "她抬头一瞥，看到二楼临窗的位置坐着两个人。一个是 Bao，另一个是戴金丝眼镜的男人。Bao 手里握着一支笔，桌上摊着几页纸。"
+   },
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "asserted": "true",
+    "asserted_by": "narration",
+    "span": "她抬头一瞥，看到二楼临窗的位置坐着两个人。一个是 Bao，另一个是戴金丝眼镜的男人。Bao 手里握着一支笔，桌上摊着几页纸。"
+   },
+   {
+    "fact": "bao_signed_the_transfer",
+    "asserted": "uncertain",
+    "asserted_by": "narration",
+    "span": "Bao 手里握着一支笔，桌上摊着几页纸。"
+   }
+  ],
+  "omniscient_spans": [],
+  "inner_mind_spans": [],
+  "knowledge_claims": [
+   {
+    "character": "Bao",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "老周说，三号在茶楼谈的那事，下个月就能定下来。"
+   },
+   {
+    "character": "Lin",
+    "claims_to_know": "bao_met_buyer_march_3rd",
+    "span": "茶楼？她问，语气平常。“哪家茶楼？”"
+   }
+  ],
+  "concealed_evidence_spans": [
+   {
+    "fact": "lin_has_seen_contract_copy",
+    "span": "她抬头一瞥，看到二楼临窗的位置坐着两个人。一个是 Bao，另一个是戴金丝眼镜的男人。Bao 手里握着一支笔，桌上摊着几页纸。"
+   }
+  ],
+  "emotions_named": [],
+  "reveal_achieved": {
+   "fact": "meta_knowledge",
+   "achieved": true,
+   "span": "现在，他在月台上说“三号在茶楼谈的那事”——语气平常，像在说一件她早就知道的事。但他从没告诉过她三号去了茶楼。他说的是出差。"
+  }
+ },
+ "failed": null
+}

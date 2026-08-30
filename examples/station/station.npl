@@ -1,0 +1,105 @@
+npl@0.1
+
+// 火车站垂直切片 —— M1 验收样例
+// 场景：两人车站相遇；Lin 知道 Bao 背叛了自己，Bao 不知道她已经知道。
+// 预期诊断：0 错误；1 个 NAR-041 警告（marriage_is_effectively_over 自由命题，属设计意图）
+
+world station_world {
+    location = old_station                     // 临江火车站，夜，站台
+    time = 2047-03-17 23:40
+
+    fact bao_signed_the_transfer = true      // 世界真相：B 已把厂子卖了
+    fact bao_met_buyer_march_3rd = true        // 3月3日 B 与买家见面（B 以为无人在场）
+    fact lin_has_seen_contract_copy = true   // A 拿到过合同复印件
+    fact buyer_paid_deposit = true           // 买家已付定金（Lin 不知道 → 验证上下文过滤）
+    fact lin_knows_nothing = false           // 接地 Bao 的虚假信念（inspect 时标注）
+}
+
+information betrayal_secret {
+    truth = bao_signed_the_transfer          // 秘密本体：双方都知道
+    known_by = [Lin, Bao]
+    public = false
+}
+
+information meta_knowledge {                 // 元认知不对称：B 不知道 A 已经知道
+    truth = lin_has_seen_contract_copy
+    known_by = [Lin]
+    unknown_to = [Bao]
+    public = false
+}
+
+character Lin {                              // Lin，女，Bao 的妻子。已经知道丈夫背叛了自己，此刻不动声色
+    knows:
+        bao_signed_the_transfer
+        lin_has_seen_contract_copy
+    // 注：bao_met_buyer_march_3rd 不在初始认知中 —— 由本幕
+    //      information_changes 的 Lin.confirms(...) 现场闭合证据链
+    believes:
+        marriage_is_effectively_over         // 自由命题：信念，无对应世界事实（NAR-041 属预期）
+    intends:
+        confirm_before_confronting
+    personality:
+        restrained = 0.9
+        observant = 0.8
+    emotion:
+        grief = 0.7
+        control = 0.6
+}
+
+character Bao {                              // Bao，男，Lin 的丈夫。背叛者：背着妻子卖了厂子，以为她毫不知情
+    knows:
+        bao_signed_the_transfer
+        bao_met_buyer_march_3rd              // 他自己在场——检查器曾据此抓出源文件认知授权缺失
+    believes:
+        lin_knows_nothing                    // 虚假信念：世界事实 lin_knows_nothing = false
+    intends:
+        delay_telling_until_after_festival
+    personality:
+        evasive = 0.7
+    emotion:
+        guilt = 0.8
+        anxiety = 0.5
+}
+
+scene "夜车" {
+    location = old_station
+    world_time = 2047-03-17 23:40
+
+    pov = Lin
+
+    participants = [Lin, Bao]
+
+    access {
+        allow = Lin.perception               // 镜头只进入 Lin 的感知/记忆/推断
+        allow = Lin.memory
+        allow = Lin.inference
+        deny = Bao.private_thought           // 渲染器无权进入 B 的内心
+        deny = world.truth                   // 无权做全知旁白
+    }
+
+    events {
+        Bao.arrives_late                     // 迟到
+        Bao.mentions_buyer_casually          // 说漏一个只有买家才知道的细节
+        Lin.notices_detail_mismatch          // 注意到细节对不上
+        Lin.asks_ordinary_questions          // 平静地问日常问题（试探）
+    }
+
+    information_changes {
+        Lin.confirms(bao_met_buyer_march_3rd) // 证据链闭合，但不动声色
+    }
+
+    dramatic_goal {
+        reveal = meta_knowledge              // 对读者揭示"她已经知道"（微表情/沉默）
+        conceal = lin_has_seen_contract_copy // 对 Bao、也暂时对读者隐藏实证
+    }
+
+    emotional_arc {
+        Lin: grief -> control -> cold_clarity
+        Bao: anxiety -> relief -> unease
+    }
+}
+
+render {
+    style = restrained_literary
+    language = zh
+}
