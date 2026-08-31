@@ -32,7 +32,9 @@ nlp = ["jieba>=0.42"]
 dev = ["pytest>=7"]
 
 [project.urls]
-# Documentation = "https://example.com/npl"
+Homepage = "https://github.com/FlamingoCheers/npl-engine"
+Repository = "https://github.com/FlamingoCheers/npl-engine"
+Issues = "https://github.com/FlamingoCheers/npl-engine/issues"
 
 [project.scripts]
 npl = "npl.cli:main"
